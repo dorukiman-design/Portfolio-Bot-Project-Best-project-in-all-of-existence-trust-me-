@@ -1,8 +1,9 @@
-# Örnek metni satır satır alt alta gönder
-await ctx.send(
-    "Proje adı: Kullanıcı veri tabanı\n"
-    "Proje açıklaması: Python, SQL, API ve Discord olmak üzere 4 tane kütüphane, eleman ve programlama dili kullanılmıştır.\n"
-    "Projenin GitHub deposuna bir bağlantı: https://github.com/dorukiman-design/i-dont-know-or-am-i/blob/main/README.md\n"
-    "Proje durumu: Tamamlandı, kullanılabilir\n"
-    "Projede kullanılan beceri: yukarıdakilerin hepsi"
-)
+embed = discord.Embed(title="Proje Detayları")
+embed.add_field(name="Proje adı", value=project_name, inline=False)
+embed.add_field(name="Proje açıklaması", value=description, inline=False)
+embed.add_field(name="Projenin GitHub deposuna bir bağlantı", value=url, inline=False)
+embed.add_field(name="Proje durumu", value=status_name, inline=False)
+embed.add_field(name="Projede kullanılan beceri", value=skills_text, inline=False)
+
+# 2. Hazırlanan embed mesajını kanala gönder
+await ctx.send(embed=embed)
