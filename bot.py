@@ -2,22 +2,30 @@ import discord
 from discord.ext import commands
 from logic import DB_Manager
 from config import DATABASE, TOKEN
+#Sayın millet vekilleri, burada bizlere vaadedilen kütüphanleri içeri aktarmış bulunup mamafih veri tabanlarını içeri aktarılmıştır. Gereğini arz ederim.
+
 
 intents = discord.Intents.default()
 intents.messages = True
 intents.message_content = True
+#Değerli meslektaşlarım ve kıymetli öğretim üyeleri, burada bot isimli yapy zeka ile inşa edilmiş varlığımıza sohbetimiz adı altındaki izinleri vaadettim.
+
+
 
 bot = commands.Bot(command_prefix='!', intents=intents)
 manager = DB_Manager(DATABASE)
+#Allah'ın emri, peygamberin kavliyle bana emanet edilen bu değerli robotun karşı taraftan gelen bilgileri hazmetmesi amacıyla karşı tarafın mesaja nasıl başlaması gerektiğini ve botun bilgileri nereden kapması gerektiği belirtmiş bulunulmaktadır.
 
 @bot.event
 async def on_ready():
     print(f'Bot hazır! {bot.user} olarak giriş yapıldı.')
+#Tamam yeter bıdı bıdı etmeyeceğim burada botun terminalde hazır olduğu belirtilir.
 
 @bot.command(name='start')
 async def start_command(ctx):
     await ctx.send("Merhaba! Ben bir proje yöneticisi botuyum.\nProjelerinizi ve onlara dair tüm bilgileri saklamanıza yardımcı olacağım! =)")
     await info(ctx)
+#Burada botun ne yapabildiği açıklanmaktadır.
 
 @bot.command(name='info')
 async def info(ctx):
@@ -31,6 +39,7 @@ Kullanabileceğiniz komutlar şunlardır:
 !delete - bir projeyi silmek
 
 Ayrıca, proje adını yazarak projeyle ilgili tüm bilgilere göz atabilirsiniz!""")
+#bot info verir.
 
 @bot.command(name='new_project')
 async def new_project(ctx):
@@ -58,6 +67,7 @@ async def new_project(ctx):
     data.append(status_id)
     manager.insert_project([tuple(data)])
     await ctx.send("Proje kaydedildi")
+#bilmiyom saçma sapan şeyler kendiniz bakın
 
 @bot.command(name='projects')
 async def get_projects(ctx):
@@ -68,6 +78,7 @@ async def get_projects(ctx):
         await ctx.send(text)
     else:
         await ctx.send('Henüz herhangi bir projeniz yok!\nBir tane eklemeyi düşünün! !new_project komutunu kullanabilirsiniz.')
+#projeler
 
 @bot.command(name='skills')
 async def skills(ctx):
@@ -99,6 +110,7 @@ async def skills(ctx):
         await ctx.send(f'{skill.content} becerisi {project_name.content} projesine eklendi')
     else:
         await ctx.send('Henüz herhangi bir projeniz yok!\nBir tane eklemeyi düşünün! !new_project komutunu kullanabilirsiniz.')
+#Komutu çalıştıran kullanıcının aynı kanalda gönderdiği mesajları filtreler.
 
 @bot.command(name='delete')
 async def delete_project(ctx):
@@ -122,7 +134,7 @@ async def delete_project(ctx):
         await ctx.send(f'{project_name.content} projesi veri tabanından silindi!')
     else:
         await ctx.send('Henüz herhangi bir projeniz yok!\nBir tane eklemeyi düşünün! !new_project komutunu kullanabilirsiniz.')
-
+#Kullanıcının seçtiği projeyi veri tabanından silen komut
 @bot.command(name='update_projects')
 async def update_projects(ctx):
     user_id = ctx.author.id
@@ -165,6 +177,7 @@ async def update_projects(ctx):
 
         manager.update_projects(attributes[attribute.content], (update_info, project_name.content, user_id))
         await ctx.send("Tüm işlemler tamamlandı! Proje güncellendi!")
+#Kullanıcının mevcut bir projesindeki seçili alanı güncelleyen komut
     else:
         await ctx.send('Henüz herhangi bir projeniz yok!\nBir tane eklemeyi düşünün! !new_project komutunu kullanabilirsiniz.')
 
